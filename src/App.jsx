@@ -1,25 +1,34 @@
 import './App.css';
+import './server.js';
 import { Routes, Route, Link } from 'react-router-dom';
 import About from './components/About';
-import Contact from './components/Contact';
+import Vans from './components/Vans';
 import Home from './components/Home';
+import VanDetail from './components/VanDetail.jsx';
 
 function App() {
 
   return (
     <>
-    <header>
-      <Link to={'/'}>#VANLIFE</Link>
-      <nav>
-        <Link to={'/about'}>About</Link>
-        <Link to={'/contact'}>Contact</Link>
-      </nav>
-    </header>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/about' element={<About />}/>
-        <Route path='/contact' element={<Contact />} />
-      </Routes>
+    <div className="site-wrapper">
+      <header>
+        <Link to={'/'} className='site-logo'>#VANLIFE</Link>
+        <nav>
+          <Link to={'/about'}>About</Link>
+          <Link to={'/vans'}>Vans</Link>
+        </nav>
+      </header>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/about' element={<About />}/>
+          <Route path='/vans' element={<Vans />} />
+          <Route path='/vans/:id' element={<VanDetail />} />
+        </Routes>
+      <footer>
+          <p>&copy; 2024 #VANLIFE</p>
+      </footer>
+    </div>
+    
     </>
   )
 }

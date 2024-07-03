@@ -3,10 +3,12 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  max-width: 60vw;
+  margin: 0 auto;
 }
 
 header {
-  height: 110px;
+  height: 100px;
   display: flex;
   align-items: center;
   padding-block: 10px;
@@ -134,7 +136,7 @@ footer {
 
 /*** ABOUT PAGE ***/
 .about-hero-image {
-  max-width: 100%;
+  width: 100%;
 }
 
 .about-page-content {
@@ -199,8 +201,8 @@ footer {
 }
 
 .van-tile img {
-  max-width: 100%;
   border-radius: 5px;
+  width: 200px;
 }
 
 .van-list-container button {
