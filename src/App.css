@@ -64,6 +64,11 @@ footer {
   font-weight: 500;
 }
 
+header .active-link {
+  color: brown;
+  font-weight: bold;
+}
+
 .link-button {
   display: inline-block;
   text-align: center;
@@ -120,7 +125,8 @@ footer {
   text-decoration: none;
   background-color: #ff8c38;
   border: none;
-  width: 100%;
+  width: 50%;
+  margin: 0 auto;
   margin-top: 27px;
   padding-block: 0.75rem;
   color: white;
