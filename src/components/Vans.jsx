@@ -17,7 +17,7 @@ const Vans = () => {
         {vans.map(van => (
           <div key={van.id} className="van-title">
             <Link to={`/vans/${van.id}`}>
-              <img src={van.imageUrl} alt="" width={'200px'}/>
+              <img src={van.imageUrl} alt="" width={'300px'}/>
               <div className="van-info">
                 <h3>{van.name}</h3>
                 <p>${van.price}<span>/day</span></p>
