@@ -5,10 +5,30 @@ const HostLayout = () => {
   return (
     <>
         <nav className='host-nav'>
-            <Link to={'/host'}>Dashboard</Link>
-            <Link to={'/host/income'}>Income</Link>
-            <Link to={'/host/vans'}>Vans</Link>
-            <Link to={'/host/reviews'}>Reviews</Link>
+            <Link 
+              to={'.'}
+              className={({ isActive }) => isActive ? 'active-link' : null}
+            >
+              Dashboard
+            </Link>
+            <Link 
+              to={'income'}
+              className={({ isActive }) => isActive ? 'active-link' : null}
+            >
+              Income
+            </Link>
+            <Link 
+              to={'vans'}
+              className={({ isActive }) => isActive ? 'active-link' : null}
+            >
+              Vans
+            </Link>
+            <Link 
+              to={'reviews'}
+              className={({ isActive }) => isActive ? 'active-link' : null}
+            >
+              Reviews
+            </Link>
         </nav>
         <Outlet />
     </>
