@@ -36,14 +36,16 @@ export const loginUser = async (creds) => {
             body: JSON.stringify(creds)
         }
     )
-    
+
+    const data = await response.json()
+
     if(!response.ok) {
         throw {
-            message: "Failed to login",
+            message: data.message || "Failed to login",
             statusText: response.statusText,
             status: response.status
         }
     }
-    const data = await response.json()
+    
     return data; 
 }

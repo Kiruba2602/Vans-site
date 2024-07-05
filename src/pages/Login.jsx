@@ -1,49 +1,47 @@
-import React, {useState} from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { useNavigate, Form, useLocation, redirect, useActionData, useNavigation } from 'react-router-dom';
 import { loginUser } from '../api/API';
 
-export const loader = ({ request }) => {
-    return new URL(request.url).searchParams.get("message");
+export const action = async ({ request }) => {
+    const formData = await request.formData()
+    const email = formData.get("email")
+    const password = formData.get("password")
+    try {
+        const data = await loginUser({ email, password })
+        localStorage.setItem("loggedin", true)
+        return redirect('/host')
+    } catch (error) {
+        return error.message
+    }
 }
 
 const Login = () => {
-    const [formData, setFormData] = useState({ email: '', password: '' });
-    const [status, setStatus] = useState('idle');
-    const [error, setError] = useState(null);
-    const message = useLoaderData();
     const navigate = useNavigate();
+    const data = useActionData();
+    const location = useLocation();
+    const navigation = useNavigation();
+    const from = location.state?.from || '/host';
 
-    const handleSubmit = (e) =>{
-        e.preventDefault();
-        setStatus('submitting');
-        setError(null);
-
-        loginUser(formData)
-        .then(data => console.log(data))
-        .then(navigate('/host'))
-        .catch(error => setError(error.message))
-        .finally(() => setStatus('idle'))
+    if(data?.token) {
+        navigate(from , { replace: true })
     }
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    }
   return (
     <div className="login-container">
+        { location.state?.message && 
+            <h3 className='login-error'>{location.state.message}</h3>
+        }
         <h1>Sign in to your account</h1>
-        {message && <h2>{message}</h2>}
-        {error && <h2>{error}</h2>}
-        <form onSubmit={handleSubmit} className='login-form'>
-            <input name='email' type='email' value={formData.email} onChange={handleChange} placeholder='Email Address' />
-            <input name='password' type='password' value={formData.password} onChange={handleChange} placeholder='Password' />
-            <button disabled={status === 'submitting'}>
-                {status === 'submitting' ? "Logging in..." : "Log In"}
+        { data?.error && <h3 className='login-error'>{data.error}</h3> }
+        <Form action='/login' method='post' className='login-form'>
+            <input type='email' name='email' placeholder='Email address' />
+            <br />
+            <input type='password' name='password' placeholder='Password' />
+            <br />
+            <button disabled={navigation.state === "submitting"}>
+                {navigation.state === "submitting" ? 'Logging in...' : 'Log in'}
             </button>
-        </form>
+        </Form>
     </div>
   )
 }
